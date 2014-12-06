@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="DateManager.js"></script>
+	<script src="Loan.js"></script>
+	<script src="LoanManager.js"></script>
+</head>
+
+<body>
+	<script>
+		var loanManager = new LoanManager();
+		var dateManager = new DateManager(new Date());
+		var extraPaymentAmount = 100;
+		var extraPaymentDay = 1;
+
+		loanManager.addLoan(new Loan(1000, 8.2, 100, 13));
+
+		var emergency = 500;
+		while(loanManager.getTotalAmount() > 0 && emergency > 0){
+			// One more day has gone by.
+			dateManager.addDay();
+			dateManager.print();
+
+			// Accrue interest every day
+			loanManager.accrueInterest();
+
+			// Pay any due balances if they exist.
+			loanManager.payDue(dateManager.dayNumber());
+
+			// Pay off extra amount
+			if(extraPaymentDay === dateManager.dayNumber()){
+				loanManager.payExtra(extraPaymentAmount);
+			}
+
+			--emergency;
+		}
+	</script>
+</body>
+
+</html>
