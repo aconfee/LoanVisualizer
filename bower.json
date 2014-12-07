@@ -1,0 +1,21 @@
+{
+  "name": "LoanVisualizer",
+  "version": "0.0.1",
+  "homepage": "https://github.com/aconfee/LoanVisualizer",
+  "authors": [
+    "Adam Estela <adam.estela@paperg.com>"
+  ],
+  "description": "Visualize your loan payments until end of loan.",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1"
+  }
+}

@@ -61,9 +61,9 @@ function Loan(name, amount, interestRate, minimumPayment, paymentDay){
 
 	self.accrueInterest = function(){
 		if(self.amount === 0){
-			return;
+			return 0;
 		}
-		
+
 		var interestAdded = (self.amount * (self.interestRate / 100)) / 365;
 		self.amount += interestAdded;
 		console.log(self.name + " added $" + interestAdded.toFixed(2) + " interest to loan.");
@@ -77,4 +77,4 @@ function Loan(name, amount, interestRate, minimumPayment, paymentDay){
 		console.log("	Interest Rate: " + self.interestRate + "%");
 		console.log("	Minimum payment of $" + self.minimumPayment.toFixed(2) + " due every " + self.paymentDay + " of the month.");
 	};
-}
+};

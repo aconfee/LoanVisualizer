@@ -5,47 +5,93 @@
 	<script src="DateManager.js"></script>
 	<script src="Loan.js"></script>
 	<script src="LoanManager.js"></script>
+	<script src="VisualizerTools.js"></script>
+	
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+	
 </head>
 
 <body>
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
 	<script>
-		var loanManager = new LoanManager();
-		var dateManager = new DateManager(new Date());
-		var extraPaymentAmount = 170;
-		var extraPaymentDay = 1;
+		var myLoans = [
+			new Loan("My Loan", 7000, 12.6, 100, 7),
+			new Loan("loanish", 30000, 8.6, 100, 7),
+			new Loan("hugeloan", 10000, 7.6, 200, 7),
+			new Loan("wowloan", 15000, 7.6, 200, 7),
+			new Loan("umloan", 8000, 4.6, 150, 7),
+			new Loan("thisLoan", 8000, 2.6, 150, 7),
+		];
 
-		loanManager.addLoan(new Loan("My Loan", 100, 8.2, 2, 7));
-		loanManager.addLoan(new Loan("Other Loan", 100, 3.5, 2, 4));
+		var visualizerTools = new VisualizerTools();
+		var dataPoints = visualizerTools.loanPayoffSimulation(
+			new Date(), 
+			1500/*extra amnt*/,
+			30/*extra pay day*/,
+			myLoans
+		);
 
-		var overpay;
-		var totalInterest = 0;
-		while(loanManager.getTotalAmount() > 0){
-			// One more day has gone by.
-			dateManager.addDay();
-			console.log("\n");
-			dateManager.print();
+		$(function () {
+		    $('#container').highcharts({
+		        chart: {
+		            zoomType: 'x'
+		        },
+		        title: {
+		            text: 'Your Loan Countdown'
+		        },
+		        subtitle: {
+		            text: document.ontouchstart === undefined ?
+		                    'Click and drag in the plot area to zoom in' :
+		                    'Pinch the chart to zoom in'
+		        },
+		        xAxis: {
+		            type: 'datetime',
+		            minRange: 14 * 24 * 3600000 // fourteen days
+		        },
+		        yAxis: {
+		            title: {
+		                text: 'Loan Amount'
+		            }
+		        },
+		        legend: {
+		            enabled: false
+		        },
+		        plotOptions: {
+		            area: {
+		                fillColor: {
+		                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+		                    stops: [
+		                        [0, Highcharts.getOptions().colors[0]],
+		                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+		                    ]
+		                },
+		                marker: {
+		                    radius: 2
+		                },
+		                lineWidth: 1,
+		                states: {
+		                    hover: {
+		                        lineWidth: 1
+		                    }
+		                },
+		                threshold: null
+		            }
+		        },
 
-			// Accrue interest every day
-			totalInterest += loanManager.accrueInterest();
-
-			// Pay any due balances if they exist.
-			overpay = loanManager.payDue(dateManager.dayNumber());
-
-			// If loan was paid off and money remains, make an extra payement.
-			if(overpay > 0){
-				loanManager.payExtra(overpay);
-			}
-
-			// Pay off extra amount
-			if(extraPaymentDay === dateManager.dayNumber()){
-				loanManager.payExtra(extraPaymentAmount);
-			}
-		}
-
-		console.log("\nCONGRATS!");
-		console.log("Your loans are paid on ");
-		dateManager.print();
-		console.log("Total interest paid $" + totalInterest);
+		        series: [{
+		            type: 'area',
+		            name: 'Loan Amount',
+		            pointInterval: 24 * 3600 * 1000,
+		            pointStart: Date.UTC(2014, 12, 7),
+		            data: dataPoints
+		        }]
+		    });
+		});
 	</script>
 </body>
 

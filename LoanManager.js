@@ -35,7 +35,7 @@ function LoanManager(){
 		}
 
 		return maxIdx;
-	}
+	};
 
 	// Pays extra to highest interest loans first
 	self.payExtra = function(paymentAmount){
@@ -82,4 +82,4 @@ function LoanManager(){
 			self.loans[i].print();
 		}
 	};
-}
+};
