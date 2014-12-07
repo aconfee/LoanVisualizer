@@ -16,7 +16,11 @@
 </head>
 
 <body>
-	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<div id="totalLoans" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<p></p>
+	<p></p>
+	<p></p>
+	<div id="individualLoans" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 	<script>
 		var myLoans = [
@@ -40,7 +44,7 @@
 		];
 
 		var visualizerTools = new VisualizerTools();
-		var totalPredictionData = visualizerTools.loanPayoffSimulation(
+		var plotData = visualizerTools.loanPayoffSimulation(
 			new Date(), 
 			1563/*extra amnt*/,
 			27/*extra pay day*/,
@@ -259,12 +263,12 @@
 
 
 		$(function () {
-		    $('#container').highcharts({
+		    $('#totalLoans').highcharts({
 		        chart: {
 		            type: 'spline'
 		        },
 		        title: {
-		            text: 'Loan Payment Countdown'
+		            text: 'Total Loan Payment Countdown'
 		        },
 		        subtitle: {
 		            text: 'Find out when your loans will be paid!'
@@ -291,7 +295,7 @@
 
 		        series: [{
 		            name: 'Predicted Total Loan Amount',
-		            data: totalPredictionData
+		            data: plotData["totalAmountPrediction"]
 		        }, {
 		            name: 'Actual Total Loan Amount',
 		            data: [
@@ -300,11 +304,99 @@
 		                [Date.UTC(2015, 11,  1), 106000]
 		            ]
 		        }, {
-		            name: 'Direct Sub 1-01',
-		            data: [
-		                [Date.UTC(2015,  9,  9), 0   ]
-		            ]
-		        }]
+		            name: 'Interest',
+		            data: plotData["totalInterestPrediction"]
+		        }
+		        // Additional lines plots here
+		        ]
+		    });
+		});
+
+		$(function () {
+		    $('#individualLoans').highcharts({
+		        chart: {
+		            type: 'spline'
+		        },
+		        title: {
+		            text: 'Individual Loan Payment Countdown'
+		        },
+		        subtitle: {
+		            text: 'Find out when your loans will be paid!'
+		        },
+		        xAxis: {
+		            type: 'datetime',
+		            dateTimeLabelFormats: { // don't display the dummy year
+		                month: '%b %e 20%y'
+		            },
+		            title: {
+		                text: 'Date'
+		            }
+		        },
+		        yAxis: {
+		            title: {
+		                text: 'Loan Amount'
+		            },
+		            min: 0
+		        },
+		        tooltip: {
+		            headerFormat: '<b>{series.name}</b><br>',
+		            pointFormat: '{point.x:%e %b 20%y}: ${point.y:.2f}'
+		        },
+
+		        series: [{
+		        	name: 'Stafford 1-01',
+		        	data: plotData["loan0"]
+		        }, {
+		        	name: 'Stafford 1-02',
+		        	data: plotData["loan1"]
+		        }, {
+		        	name: 'Direct Loan - Sub 1-03',
+		        	data: plotData["loan2"]
+		        }, {
+		        	name: 'Direct Loan - Sub 1-04',
+		        	data: plotData["loan3"]
+		        }, {
+		        	name: 'Direct Loan - Unsub 1-05',
+		        	data: plotData["loan4"]
+		        }, {
+		        	name: 'Direct Loan - Unsub 1-06',
+		        	data: plotData["loan5"]
+		        }, {
+		        	name: "Direct Loan - Unsub 1-07",
+		        	data: plotData["loan6"]
+		        }, {
+		        	name: 'Direct Loan - Sub 1-08',
+		        	data: plotData["loan7"]
+		        }, {
+		        	name: 'Direct Loan - Unsub 1-09',
+		        	data: plotData["loan8"]
+		        }, {
+		        	name: 'Direct Loan - Sub 1-10',
+		        	data: plotData["loan9"]
+		        },{
+		        	name: 'Direct Loan - Unsub 1-11',
+		        	data: plotData["loan10"]
+		        }, {
+		        	name: 'Parent PLUS Loan 1-01',
+		        	data: plotData["loan11"]
+		        }, {
+		        	name: 'Direct Parent Plus 1-02',
+		        	data: plotData["loan12"]
+		        }, {
+		        	name: 'Direct Parent Plus 1-03',
+		        	data: plotData["loan13"]
+		        }, {
+		        	name: 'Direct Parent Plus 1-04',
+		        	data: plotData["loan14"]
+		        }, {
+		        	name: 'Direct Parent Plus 1-05',
+		        	data: plotData["loan15"]
+		        }, {
+		        	name: 'Direct Parent Plus 1-06',
+		        	data: plotData["loan16"]
+		        }
+		        // Additional lines plots here
+		        ]
 		    });
 		});
 	</script>

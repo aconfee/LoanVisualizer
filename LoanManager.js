@@ -3,6 +3,10 @@ function LoanManager(){
 
 	self.loans = [];
 
+	self.getLoans = function(){
+		return self.loans;
+	};
+
 	self.addLoan = function(loan){
 		self.loans.push(loan);
 		console.log("'" + loan.getName() + "' added to loans: ");

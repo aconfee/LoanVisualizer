@@ -22,6 +22,10 @@ function DateManager(startDay){
 		return parseInt( parts[3] );
 	};
 
+	self.getUTC = function(){
+		return Date.UTC(self.date.getFullYear(), self.date.getMonth(), self.date.getDate());
+	}
+
 	self.print = function(){
 		var dateString = self.date.toDateString();
 		console.log(dateString);
