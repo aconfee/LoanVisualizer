@@ -2,6 +2,10 @@ function DateManager(startDay){
 	var self = this;
 	self.date = startDay;
 
+	self.getCurrentDate = function(){
+		return self.date;
+	};
+
 	self.addDay = function(){
 		self.date.setDate(self.date.getDate() + 1);
 	};
@@ -16,14 +20,6 @@ function DateManager(startDay){
 		var dateString = self.date.toDateString();
 		var parts = dateString.split(' ');
 		return parseInt( parts[3] );
-	};
-
-	self.deltaDays = function(startDate, endDate){
-
-	};
-
-	self.deltaYears = function(startYear, endYear){
-
 	};
 
 	self.print = function(){

@@ -24,9 +24,9 @@ function VisualizerTools(){
 
 			// Accrue interest every day
 			totalInterest += loanManager.accrueInterest();
-			console.log("Total interest: " + totalInterest.toFixed(2));
 
 			// Pay any due balances if they exist.
+			// Over pay comes from paid off loans
 			overpay = loanManager.payDue(dateManager.dayNumber());
 
 			// If loan was paid off and money remains, make an extra payement.
@@ -36,13 +36,14 @@ function VisualizerTools(){
 
 			// Pay off extra amount
 			if(extraPaymentDay === dateManager.dayNumber()){
-				// If a loan has been paid off, apply its min payment as extra.
-				extraPaymentAmount += loanManager.oldMinimumPayments();
+				// If a loan has been paid off, extra minimum amounts are paid
+				// during payDue
+				//extraPaymentAmount = extraAmount + loanManager.oldMinimumPayments();
 				loanManager.payExtra(extraPaymentAmount);
 			}
 
 			// Save this information to graph
-			dataPoints.push(loanManager.getTotalAmount());
+			dataPoints.push([Date.UTC(dateManager.getCurrentDate().getFullYear(), dateManager.getCurrentDate().getMonth(), dateManager.getCurrentDate().getDate()), loanManager.getTotalAmount()]);
 
 			++days;
 		}
