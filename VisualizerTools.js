@@ -36,6 +36,8 @@ function VisualizerTools(){
 
 			// Pay off extra amount
 			if(extraPaymentDay === dateManager.dayNumber()){
+				// If a loan has been paid off, apply its min payment as extra.
+				extraPaymentAmount += loanManager.oldMinimumPayments();
 				loanManager.payExtra(extraPaymentAmount);
 			}
 

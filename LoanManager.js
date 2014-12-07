@@ -76,6 +76,19 @@ function LoanManager(){
 		return overpay;
 	};
 
+	self.oldMinimumPayments = function(){
+		var oldMins = 0;
+		for(var i = 0; i < self.loans.length; ++i){
+			// If loan is paid off
+			if(self.loans[i].getAmount() === 0){
+				// Apply its min payment to extra amount
+				oldMins += self.loans[i].getMinimumPayment();
+			}
+		}
+
+		return oldMins;
+	};
+
 	self.print = function(){
 		console.log("All loans:")
 		for(var i = 0; i < self.loans.length; ++i){

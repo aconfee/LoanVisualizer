@@ -20,22 +20,34 @@
 
 	<script>
 		var myLoans = [
-			new Loan("My Loan", 7000, 12.6, 100, 7),
-			new Loan("loanish", 30000, 8.6, 100, 7),
-			new Loan("hugeloan", 10000, 7.6, 200, 7),
-			new Loan("wowloan", 15000, 7.6, 200, 7),
-			new Loan("umloan", 8000, 4.6, 150, 7),
-			new Loan("thisLoan", 8000, 2.6, 150, 7),
+			new Loan("Stafford 1-01", 2591.09, 6.55, 30.35, 13),
+			new Loan("Stafford 1-02", 3437.51, 5.35, 38.27, 13),
+			new Loan("Direct Loan - Sub 1-03", 1473.15, 5.35, 16.42, 13),
+			new Loan("Direct Loan - Sub 1-04", 4391.32, 3.15, 44.41, 13),
+			new Loan("Direct Loan - Unsub 1-05", 845.55, 6.55, 9.92, 13),
+			new Loan("Direct Loan - Unsub 1-06", 6741.87, 6.55, 79.16, 13),
+			new Loan("Direct Loan - Unsub 1-07", 2314.16, 6.55, 27.17, 13),
+			new Loan("Direct Loan - Sub 1-08", 5458.15, 3.15, 55.19, 13),
+			new Loan("Direct Loan - Unsub - 1-09", 2180.64, 6.55, 25.60, 13),
+			new Loan("Direct Loan - Sub 1-10", 2081.59, 3.61, 21.49, 13),
+			new Loan("Direct Loan - Unsub 1-11", 763.09, 3.61, 7.87, 13),
+			new Loan("Parent PLUS Loan 1-01", 6579.50, 8.25, 83.41, 8), 
+			new Loan("Direct Parent PLUS 1-02", 18829.16, 7.65, 241.27, 8),
+			new Loan("Direct Parent PLUS 1-03", 37441.54, 7.65, 476.79, 8),
+			new Loan("Direct Parent PLUS 1-04", 35726.53, 7.65, 441.48, 8),
+			new Loan("Direct Parent PLUS 1-05", 33796.55, 7.65, 417.63, 8),
+			new Loan("Direct Parent PLUS 1-06", 10118.85, 6.16, 117.48, 8)
 		];
 
 		var visualizerTools = new VisualizerTools();
 		var dataPoints = visualizerTools.loanPayoffSimulation(
 			new Date(), 
-			1500/*extra amnt*/,
-			30/*extra pay day*/,
+			200/*extra amnt*/,
+			27/*extra pay day*/,
 			myLoans
 		);
 
+		/* Highcharts */
 		$(function () {
 		    $('#container').highcharts({
 		        chart: {
@@ -93,6 +105,14 @@
 		    });
 		});
 	</script>
+
+	<h3>RULES</h3>
+	<ul>
+		<li>Pay highest interest loans first (amount on loan doesn't matter)</li>
+		<li>When loan is paid of, add its minimum payment to your extra payment</li>
+		<li>If loan is overpaid, apply leftover amount to next highest interest loan</li>
+		<li>Interest accrues daily and is added to principle</li>
+	</ul>
 </body>
 
 </html>
