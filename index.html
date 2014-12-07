@@ -11,30 +11,41 @@
 	<script>
 		var loanManager = new LoanManager();
 		var dateManager = new DateManager(new Date());
-		var extraPaymentAmount = 100;
+		var extraPaymentAmount = 170;
 		var extraPaymentDay = 1;
 
-		loanManager.addLoan(new Loan(1000, 8.2, 100, 13));
+		loanManager.addLoan(new Loan("My Loan", 100, 8.2, 2, 7));
+		loanManager.addLoan(new Loan("Other Loan", 100, 3.5, 2, 4));
 
-		var emergency = 500;
-		while(loanManager.getTotalAmount() > 0 && emergency > 0){
+		var overpay;
+		var totalInterest = 0;
+		while(loanManager.getTotalAmount() > 0){
 			// One more day has gone by.
 			dateManager.addDay();
+			console.log("\n");
 			dateManager.print();
 
 			// Accrue interest every day
-			loanManager.accrueInterest();
+			totalInterest += loanManager.accrueInterest();
 
 			// Pay any due balances if they exist.
-			loanManager.payDue(dateManager.dayNumber());
+			overpay = loanManager.payDue(dateManager.dayNumber());
+
+			// If loan was paid off and money remains, make an extra payement.
+			if(overpay > 0){
+				loanManager.payExtra(overpay);
+			}
 
 			// Pay off extra amount
 			if(extraPaymentDay === dateManager.dayNumber()){
 				loanManager.payExtra(extraPaymentAmount);
 			}
-
-			--emergency;
 		}
+
+		console.log("\nCONGRATS!");
+		console.log("Your loans are paid on ");
+		dateManager.print();
+		console.log("Total interest paid $" + totalInterest);
 	</script>
 </body>
 

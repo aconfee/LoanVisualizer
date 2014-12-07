@@ -3,24 +3,19 @@ function DateManager(startDay){
 	self.date = startDay;
 
 	self.addDay = function(){
-		//self.day = new Date(self.day + 1);
 		self.date.setDate(self.date.getDate() + 1);
 	};
 
-	self.addWeek = function(){
-
-	};
-
-	self.addMonth = function(){
-
-	};
-
 	self.dayNumber = function(){
-
+		var dateString = self.date.toDateString();
+		var parts = dateString.split(' ');
+		return parseInt( parts[2] );
 	};
 
 	self.yearNumber = function(){
-
+		var dateString = self.date.toDateString();
+		var parts = dateString.split(' ');
+		return parseInt( parts[3] );
 	};
 
 	self.deltaDays = function(startDate, endDate){
