@@ -46,10 +46,11 @@
 
 		var visualizerTools = new VisualizerTools();
 		var plotData = visualizerTools.loanPayoffSimulation(
-			new Date(), 
+			new Date(2014, 11, 7), 
 			1002/*extra amnt*/,
 			27/*extra pay day*/,
-			myLoans
+			myLoans,
+			true
 		);
 
 		/* Highcharts */
@@ -295,21 +296,28 @@
 		        },
 
 		        series: [{
-		            name: 'Predicted Total Loan Amount',
+		            name: 'Current Projected Total Loan Amount',
 		            data: plotData["totalAmountPrediction"]
 		        }, {
 		            name: 'Actual Total Loan Amount',
 		            data: [
-		                [Date.UTC(2014,  11, 7), 182428.37]
+		            	[Date.UTC(2013, 11, 13), 185000],
+		                [Date.UTC(2014, 11, 7), 182428.37]
 		            ]
 		        }, {
-		            name: 'Interest',
+		            name: 'Current Projected Interest Amount',
 		            data: plotData["totalInterestPrediction"]
 		        }, {
 		        	name: 'Goal',
 		        	data:[
-		        		[Date.UTC(2014, 11, 7), 182428.37],
-		        		[Date.UTC(2019, 8, 8), 0]
+		        		[Date.UTC(2019, 0, 13), 190000],
+		        		[Date.UTC(2019, 0, 13), 0]
+		        	]
+		        }, {
+		        	name: 'Initial Projection',
+		        	data: [
+		        		[Date.UTC(2022, 9, 8), 190000],
+		        		[Date.UTC(2022, 9, 8), 0]
 		        	]
 		        }
 		        // Additional lines plots here

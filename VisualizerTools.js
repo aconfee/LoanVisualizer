@@ -1,7 +1,7 @@
 function VisualizerTools(){
 	var self = this;
 
-	self.loanPayoffSimulation = function(startDate, extraAmount, extraPayDay, loans){
+	self.loanPayoffSimulation = function(startDate, extraAmount, extraPayDay, loans, plotAll){
 		var loanManager = new LoanManager();
 		var dateManager = new DateManager(startDate);
 		var extraPaymentAmount = extraAmount;
@@ -51,19 +51,20 @@ function VisualizerTools(){
 			// Save this information to graph
 			totalAmountPrediction.push([dateManager.getUTC(), loanManager.getTotalAmount()]);
 			totalInterestPrediction.push([dateManager.getUTC(), totalInterest]);
-			//loan1.push([dateManager.getUTC(), loanManager.getLoans()[0].getAmount()]);
 
-			for(var i = 0; i < loanManager.getLoans().length; ++i){
-				var name = "loan" + i;
-				if(data.hasOwnProperty(name)){
-					console.log("has property!")
-				}
-				else{
-					data[name] = [];
-					console.log("property added");
-				}
+			if(plotAll == true){
+				for(var i = 0; i < loanManager.getLoans().length; ++i){
+					var name = "loan" + i;
+					if(data.hasOwnProperty(name)){
+						console.log("has property!")
+					}
+					else{
+						data[name] = [];
+						console.log("property added");
+					}
 
-				data[name].push([dateManager.getUTC(), loanManager.getLoans()[i].getAmount()]);
+					data[name].push([dateManager.getUTC(), loanManager.getLoans()[i].getAmount()]);
+				}
 			}
 
 			// One more day has gone by.
