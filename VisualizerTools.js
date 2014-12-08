@@ -26,8 +26,7 @@ function VisualizerTools(){
 		};
 
 		while(loanManager.getTotalAmount() > 0 && days < 20000){
-			// One more day has gone by.
-			dateManager.addDay();
+			// Log the current day.
 			console.log("\n");
 			dateManager.print();
 
@@ -67,6 +66,8 @@ function VisualizerTools(){
 				data[name].push([dateManager.getUTC(), loanManager.getLoans()[i].getAmount()]);
 			}
 
+			// One more day has gone by.
+			dateManager.addDay();
 			++days;
 		}
 

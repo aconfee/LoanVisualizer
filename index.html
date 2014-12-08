@@ -40,13 +40,14 @@
 			new Loan("Direct Parent PLUS 1-03", 37441.54, 7.65, 476.79, 8),
 			new Loan("Direct Parent PLUS 1-04", 35726.53, 7.65, 441.48, 8),
 			new Loan("Direct Parent PLUS 1-05", 33796.55, 7.65, 417.63, 8),
-			new Loan("Direct Parent PLUS 1-06", 10118.85, 6.16, 117.48, 8)
+			new Loan("Direct Parent PLUS 1-06", 10118.85, 6.16, 117.48, 8),
+			new Loan("Wells Fargo Loan", 7621.84, 10.69, 103.06, 15)
 		];
 
 		var visualizerTools = new VisualizerTools();
 		var plotData = visualizerTools.loanPayoffSimulation(
 			new Date(), 
-			1563/*extra amnt*/,
+			1002/*extra amnt*/,
 			27/*extra pay day*/,
 			myLoans
 		);
@@ -299,13 +300,17 @@
 		        }, {
 		            name: 'Actual Total Loan Amount',
 		            data: [
-		                [Date.UTC(2014,  12, 7), 181000],
-		                [Date.UTC(2015,  3, 26), 171000],
-		                [Date.UTC(2015, 11,  1), 106000]
+		                [Date.UTC(2014,  11, 7), 182428.37]
 		            ]
 		        }, {
 		            name: 'Interest',
 		            data: plotData["totalInterestPrediction"]
+		        }, {
+		        	name: 'Goal',
+		        	data:[
+		        		[Date.UTC(2014, 11, 7), 182428.37],
+		        		[Date.UTC(2019, 8, 8), 0]
+		        	]
 		        }
 		        // Additional lines plots here
 		        ]
@@ -394,6 +399,9 @@
 		        }, {
 		        	name: 'Direct Parent Plus 1-06',
 		        	data: plotData["loan16"]
+		        }, {
+		        	name: 'Wells Fargo Loan',
+		        	data: plotData["loan17"]
 		        }
 		        // Additional lines plots here
 		        ]
